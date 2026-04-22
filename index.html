@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pantanos — Explorador de datos</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Chart.js (UMD) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Pantanos — Explorador de datos</h1>
+    <p class="lead">Interfaz accesible para explorar los registros de embalses. Selecciona un embalse y un intervalo de fechas para visualizar los datos.</p>
+  </header>
+
+  <main>
+    <section id="controls" class="controls" aria-label="Controles de filtrado">
+      <div class="control-row">
+        <label for="reservoir">Embalse</label>
+        <input id="reservoir" list="reservoirs" aria-describedby="reservoirHelp" placeholder="Escribe o selecciona..." />
+        <datalist id="reservoirs"></datalist>
+        <div id="reservoirHelp" class="sr-only">Utiliza las flechas para elegir y pulsar Entrar para cargar.</div>
+      </div>
+
+      <div class="control-row" id="dateControls">
+        <div>
+          <label for="startDate">Desde</label>
+          <input id="startDate" type="date" />
+        </div>
+        <div>
+          <label for="endDate">Hasta</label>
+          <input id="endDate" type="date" />
+        </div>
+      </div>
+
+      <div class="control-row buttons">
+        <button id="loadBtn">Cargar</button>
+        <button id="resetBtn">Restablecer</button>
+        <button id="exportBtn">Descargar JSON</button>
+      </div>
+      <div id="status" aria-live="polite" class="status" role="status"></div>
+    </section>
+
+    <section id="charts" class="charts" aria-label="Gráficos de datos">
+      <div class="chart-card">
+        <h2>Nivel (m)</h2>
+        <div class="canvas-wrap"><canvas id="levelChart" role="img" aria-label="Gráfico de nivel a lo largo del tiempo"></canvas></div>
+      </div>
+
+      <div class="chart-card">
+        <h2>Volumen (hm³)</h2>
+        <div class="canvas-wrap"><canvas id="volumeChart" role="img" aria-label="Gráfico de volumen a lo largo del tiempo"></canvas></div>
+      </div>
+
+      <div class="chart-card">
+        <h2>Porcentaje (%)</h2>
+        <div class="canvas-wrap"><canvas id="percentChart" role="img" aria-label="Gráfico de porcentaje a lo largo del tiempo"></canvas></div>
+      </div>
+    </section>
+
+    <section id="table-section" class="table-section" aria-label="Tabla de registros">
+      <h2>Registros</h2>
+      <div class="table-wrap">
+        <table id="dataTable">
+          <caption class="sr-only">Tabla con los registros filtrados</caption>
+          <thead>
+            <tr><th scope="col">Fecha</th><th scope="col">Nivel (m)</th><th scope="col">Volumen (hm³)</th><th scope="col">%</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Datos almacenados en Cloudflare D1. Desplegado en Cloudflare Pages.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

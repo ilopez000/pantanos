@@ -1,0 +1,7 @@
+name = "pantanos"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pantanos-db"
+database_id = "ff51818d-a87d-48c2-a527-92ae41bbbe08"
